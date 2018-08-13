@@ -1,0 +1,40 @@
+version: '3'
+services:
+  forwarder1:
+    build: .
+    ports:
+      - "24234:24224"
+      - "24234:24224/udp"
+    volumes:
+      - ./fluent-forwarder.conf:/fluentd/etc/fluent.conf
+      - ./fluentd.crt:/fluentd/ssl/fluentd.crt
+    depends_on:
+      - aggregator1
+  aggregator1:
+    build: .
+    ports:
+      - "24244:24224"
+      - "24244:24224/udp"
+    volumes:
+      - ./fluent-aggregator.conf:/fluentd/etc/fluent.conf
+      - ./fluentd.crt:/fluentd/ssl/fluentd.crt
+      - ./fluentd.key:/fluentd/ssl/fluentd.key
+  forwarder2:
+    image: fluent/fluentd:v1.2
+    ports:
+      - "24234:24224"
+      - "24234:24224/udp"
+    volumes:
+      - ./fluent-forwarder.conf:/fluentd/etc/fluent.conf
+      - ./fluentd.crt:/fluentd/ssl/fluentd.crt
+    depends_on:
+      - aggregator1
+  aggregator2:
+    build: .
+    ports:
+      - "24244:24224"
+      - "24244:24224/udp"
+    volumes:
+      - ./fluent-aggregator.conf:/fluentd/etc/fluent.conf
+      - ./fluentd.crt:/fluentd/ssl/fluentd.crt
+      - ./fluentd.key:/fluentd/ssl/fluentd.key
