@@ -1,7 +1,7 @@
 <template>
-  <ul>
+  <ul class="content is-medium">
     <li v-for="item in items" :key="item.id">
-      <p class="title">
+      <p>
         <nuxt-link :to="{ name: 'items-id', params: { id: item.id } }">
           {{ item.title }}
         </nuxt-link>
@@ -9,12 +9,6 @@
     </li>
   </ul>
 </template>
-
-<style>
-.title {
-  font-weight: bold;
-}
-</style>
 
 <script>
 export default {

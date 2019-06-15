@@ -1,9 +1,16 @@
 <template>
-  <div>
-    <item :title="item.title" :body="detail.body" />
-    <nuxt-link :to="{ name: 'items-id-edit', params: { id: item.id } }">
-      Edit
-    </nuxt-link>
+  <div class="columns">
+    <div class="column is-four-fifths content is-medium">
+      <item :title="item.title" :body="detail.body" />
+    </div>
+    <div class="column">
+      <nuxt-link
+        :to="{ name: 'items-id-edit', params: { id: item.id } }"
+        class="button is-primary"
+      >
+        Edit
+      </nuxt-link>
+    </div>
   </div>
 </template>
 
@@ -19,7 +26,6 @@ export default {
   async asyncData({ params, store }) {
     let data
     store.state.items.some(item => {
-      console.log('############111', item.id)
       if (item.id === params.id) {
         data = item
         return true

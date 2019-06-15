@@ -58,6 +58,9 @@ export default {
           outAt: infinityTime.toDate()
         })
       this.$router.push({ name: 'items-id', params: { id: this.id } })
+    },
+    cancel() {
+      this.$$router.push({ name: 'items' })
     }
   }
 }

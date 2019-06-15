@@ -1,11 +1,38 @@
 <template>
-  <div>
-    <form @submit.prevent="click">
-      <input v-model="title" type="text" />
-      <textarea v-model="body" />
-      <button type="submit" class="button-green block">Update</button>
-    </form>
-  </div>
+  <form @submit.prevent="click">
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <input v-model="title" class="input" type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <textarea
+              v-model="body"
+              class="textarea has-fixed-size"
+              rows="30"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field is-horizontal is-grouped">
+      <div class="control">
+        <button type="submit" class="button is-primary">Update</button>
+      </div>
+      <div class="control">
+        <button type="submit" class="button is-light" @click="cancel">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
 </template>
 
 <style>
@@ -31,6 +58,9 @@ export default {
   methods: {
     click() {
       this.$emit('update', { title: this.title, body: this.body })
+    },
+    cancel() {
+      this.$emit('cancel')
     }
   }
 }
