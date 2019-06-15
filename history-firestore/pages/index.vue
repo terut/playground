@@ -13,10 +13,14 @@
 
 <script>
 import List from '~/components/List.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     List
+  },
+  computed: {
+    ...mapGetters[{ items: 'items' }]
   },
   async fetch({ store, params }) {
     await store.dispatch('fetchItems')

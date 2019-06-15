@@ -1,66 +1,44 @@
 <template>
-  <edit :title="item.title" :body="detail.body" @update="update" />
+  <edit
+    :title="item.title"
+    :body="item.detail.body"
+    @update="update"
+    @cancel="cancel"
+  />
 </template>
 
 <script>
 import Edit from '~/components/Edit.vue'
-import firebase from '~/plugins/firebase'
-import uuid from 'uuid/v4'
-import moment from 'moment'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     Edit
   },
-  async asyncData({ params, store }) {
-    let data
-    store.state.items.some(item => {
-      if (item.id === params.id) {
-        data = item
-        return true
-      }
+  computed: {
+    ...mapGetters({
+      item: 'item'
     })
-    const db = firebase.firestore()
-    const now = moment.utc()
-    const snapshot = await db
-      .collection('items')
-      .doc(params.id)
-      .collection('details')
-      .where('outAt', '>', now.toDate())
-      .limit(1)
-      .get()
-    return {
-      id: params.id,
-      item: data,
-      detailId: snapshot.docs[0].id,
-      detail: snapshot.docs[0].data()
-    }
+  },
+  async fetch({ store, params }) {
+    await store.dispatch('fetchItem', params)
   },
   methods: {
     async update(form) {
-      const db = firebase.firestore()
-      const now = moment.utc()
-      await db
-        .collection('items')
-        .doc(this.id)
-        .collection('details')
-        .doc(this.detailId)
-        .set({ outAt: now.toDate() }, { merge: true })
-      const infinityTime = moment.utc('9999-12-31T23:59:59.999999999Z')
-      await db
-        .collection('items')
-        .doc(this.id)
-        .collection('details')
-        .doc(uuid())
-        .set({
-          body: form.body,
-          inAt: now.toDate(),
-          outAt: infinityTime.toDate()
-        })
-      this.$router.push({ name: 'items-id', params: { id: this.id } })
+      const nextItem = {
+        title: form.title,
+        detail: {
+          body: form.body
+        }
+      }
+      await this.$store.dispatch('updateItem', {
+        nextItem: nextItem,
+        prevItem: this.item
+      })
+      this.$router.push({ name: 'items-id', params: { id: this.item.id } })
     },
     cancel() {
-      this.$$router.push({ name: 'items' })
+      this.$router.push({ name: 'items-id', params: { id: this.item.id } })
     }
   }
 }

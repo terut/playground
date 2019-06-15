@@ -27,7 +27,7 @@
         <button type="submit" class="button is-primary">Update</button>
       </div>
       <div class="control">
-        <button type="submit" class="button is-light" @click="cancel">
+        <button type="submit" class="button is-light" @click.prevent="cancel">
           Cancel
         </button>
       </div>
