@@ -6,7 +6,7 @@
     <div class="column">
       <nuxt-link
         :to="{ name: 'items-id-edit', params: { id: item.id } }"
-        class="button is-primary"
+        class="button is-primary is-fullwidth"
       >
         Edit
       </nuxt-link>

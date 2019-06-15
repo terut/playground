@@ -1,13 +1,17 @@
 <template>
   <div>
-    <h1 class="title">{{ title }}</h1>
-    <div v-html="$md.render(body)"></div>
+    <h1 class="summary">{{ title }}</h1>
+    <div class="md" v-html="$md.render(body)"></div>
   </div>
 </template>
 
 <style>
-.title {
-  font-weight: bold;
+.summary {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 15px 0;
+}
+.md {
+  margin-top: 50px;
 }
 </style>
 

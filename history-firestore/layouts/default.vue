@@ -1,9 +1,18 @@
 <template>
-  <section class="section">
-    <div class="container">
-      <nuxt />
-    </div>
-  </section>
+  <div>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <h1 class="brand">
+          <nuxt-link to="/">Temporal Model</nuxt-link>
+        </h1>
+      </div>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <nuxt />
+      </div>
+    </section>
+  </div>
 </template>
 
 <style>
@@ -53,5 +62,15 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.brand {
+  padding: 10px 0px 10px 30px;
+  font-size: 2em;
+  font-weight: bold;
+}
+.brand a,
+.barnd a:hover {
+  color: #fff;
 }
 </style>

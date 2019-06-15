@@ -7,6 +7,7 @@ import data from '~/assets/posts.json'
 const db = firebase.firestore()
 
 export const state = () => ({
+  item: null,
   items: [],
   isLoaded: false
 })
