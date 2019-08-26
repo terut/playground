@@ -1,0 +1,17 @@
+.card {
+  width: 400px;
+  box-shadow: 0 2px 5px #ccc;
+  background: #fcfcfc;
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+}
+
+.card-img {
+  width: 100px;
+  height: 100px;
+}
+.card-content {
+  flex-grow: 1;
+  margin-left: 20px;
+}
