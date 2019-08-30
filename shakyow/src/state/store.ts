@@ -1,18 +1,26 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 
-import { sutraReducer } from './sutra';
+import { sutraReducer } from './sutra'
+import { rootSage } from '../sagas'
 
 const rootReducer = combineReducers({
   sutra: sutraReducer
 })
 
-export default function configureStore(initialState = {}) {
+const sageMiddleware = createSagaMiddleware()
+
+export function configureStore(initialState = {}) {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(),
+    applyMiddleware(sageMiddleware),
   )
 }
 
-export type AppState = ReturnType<typeof rootReducer>
+// TODO: Who has responsibility
+export function runSaga() {
+  sageMiddleware.run(rootSage)
+}
 
+export type AppState = ReturnType<typeof rootReducer>

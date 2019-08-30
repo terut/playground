@@ -11,7 +11,7 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addSutra: (sutra: Sutra) => {
-      dispatch(addSutra(sutra))
+      dispatch(addSutra.start(sutra))
     }
   }
 }
