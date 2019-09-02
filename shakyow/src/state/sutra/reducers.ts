@@ -19,17 +19,21 @@ const sutras = (state = initialState, action: SutraActionTypes) => {
       console.log("sutra add request!!!")
       return {
         ...state,
-        sutras: [],
+        sutras: [...state.sutras],
       }
     case SUTRA_ADD_SUCCEEDED:
       console.log("sutra add succeed!!!")
       return {
         ...state,
-        sutras: [...state.sutras, action.payload.sutra]
+        sutras: [...state.sutras, action.payload.sutra],
+        error: null
       }
     case SUTRA_ADD_FAILED:
-      console.log(action.payload.msg)
-      return state
+      return {
+        ...state,
+        sutras: [...state.sutras],
+        error: action.payload
+      }
     default:
       return state
   }

@@ -9,11 +9,13 @@ type Props = {
 const _form: React.FC<Props> = (props: Props) => {
   const { addSutra } = props
 
-  const [url, setURL] = useState("")
+  const [url, setUrl] = useState("")
   const [description, setDescription] = useState("")
 
-  const handleURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setURL(e.target.value)
+  // TODO: redirect after succeeding submit.
+
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUrl(e.target.value)
   }
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,7 +24,6 @@ const _form: React.FC<Props> = (props: Props) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    console.log("submit!!!", url, description)
 
     addSutra({
       url: url,
@@ -38,7 +39,7 @@ const _form: React.FC<Props> = (props: Props) => {
         <form onSubmit={handleSubmit}>
           <div className="form-text">
             <label htmlFor="url">Example URL</label>
-            <input type="text" name="url" value={url} onChange={handleURLChange} required />
+            <input type="text" name="url" value={url} onChange={handleUrlChange} required />
           </div>
           <div className="form-textarea">
             <label htmlFor="description">Description <span className="form-note">(optional)</span></label>

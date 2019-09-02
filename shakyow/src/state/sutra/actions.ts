@@ -14,7 +14,7 @@ interface Error {
 export const addSutra = {
   start: (newSutra: Sutra) => ({
     type: SUTRA_ADD_REQUESTED as typeof SUTRA_ADD_REQUESTED,
-    payload: newSutra,
+    payload: newSutra
   }),
   succeed: (_: Sutra, result: Result) => ({
     type: SUTRA_ADD_SUCCEEDED as typeof SUTRA_ADD_SUCCEEDED,
