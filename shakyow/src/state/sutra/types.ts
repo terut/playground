@@ -5,4 +5,5 @@ export interface Sutra {
 
 export interface SutraState {
   sutras: Sutra[]
+  isRedirect?: boolean
 }

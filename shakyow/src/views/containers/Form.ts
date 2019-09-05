@@ -5,8 +5,11 @@ import { addSutra } from '../../state/sutra'
 import { Sutra} from '../../state/sutra/types'
 import { form } from '../components/Form'
 
-const mapStateToProps = (state: AppState) => ({
-})
+const mapStateToProps = (state: AppState) => {
+  return {
+    isRedirect: state.sutra.sutras.isRedirect
+  }
+}
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {

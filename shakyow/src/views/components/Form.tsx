@@ -3,16 +3,19 @@ import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import './Form.css';
 
 type Props = {
+  isRedirect?: boolean,
   addSutra: Function
 } & RouteComponentProps;
 
 const _form: React.FC<Props> = (props: Props) => {
-  const { addSutra } = props
+  const { history, isRedirect, addSutra } = props
 
   const [url, setUrl] = useState("")
   const [description, setDescription] = useState("")
 
-  // TODO: redirect after succeeding submit.
+  if (isRedirect) {
+    history.push("/")
+  }
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value)

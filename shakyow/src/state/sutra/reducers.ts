@@ -26,13 +26,12 @@ const sutras = (state = initialState, action: SutraActionTypes) => {
       return {
         ...state,
         sutras: [...state.sutras, action.payload.sutra],
-        error: null
+        isRedirect: true,
       }
     case SUTRA_ADD_FAILED:
       return {
         ...state,
         sutras: [...state.sutras],
-        error: action.payload
       }
     default:
       return state
