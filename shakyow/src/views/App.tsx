@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
-import { Home } from './components/Home';
+import { Home } from './containers/Home';
 import { Form } from './containers/Form';
 
 const App: React.FC = () => {

@@ -1,14 +1,33 @@
-import React from 'react';
-import './Home.css';
-import { Item } from './Item';
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import './Home.css'
+import { Item } from './Item'
+import { Sutra } from '../../state/sutra'
 
-export const Home: React.FC = (props) => {
+type Props = {
+  sutras: Sutra[],
+  fetchSutras: Function,
+  clearContext: Function,
+}
+
+export const _Home: React.FC<Props> = (props: Props) => {
+  const { sutras, fetchSutras, clearContext } = props
+
+  useEffect(() => {
+    fetchSutras()
+
+    return clearContext()
+  },[fetchSutras, clearContext])
+
+  const rows = sutras.map((sutra, index) =>
+    <Item key={index} url={sutra.url} description={sutra.description}></Item>
+  )
+
   return (
     <>
-      <a className="button-nav" href="/posts/new">Post</a>
+      <Link className="button-nav" to="/posts/new">Post</Link>
       <ul>
-        <Item msg="WooHoo111"></Item>
-        <Item msg="WooHoo222"></Item>
+        { rows }
       </ul>
     </>
   );

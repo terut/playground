@@ -1,6 +1,7 @@
 import * as firebase from "firebase/app"
 import "firebase/firestore"
 import { config } from "../config/config"
+import { Sutra } from "../state/sutra"
 
 firebase.initializeApp(config.firebase)
 
@@ -11,48 +12,36 @@ export interface Error {
 }
 
 export interface ISutraRepository {
-  all(): Promise<any>
-  create(attributes: Object): Promise<any>
-  update(id:string, attributes: Object): Promise<any>
+  all(): Promise<Sutra[]>
+  create(attributes: Sutra): Promise<Sutra>
+  update(id:string, attributes: Sutra): Promise<void>
 }
 
 export class SutraRepository implements ISutraRepository {
-  async all(): Promise<any> {
-    db.collection("sutras").get()
-    .then((querySnapshot) => {
-      let sutras: Object[] = []
-      querySnapshot.forEach((doc) => {
-        sutras.push(doc)
+  async all(): Promise<Sutra[]> {
+    const querySnapshot = await db.collection("sutras").get()
+    let sutras: Sutra[] = []
+    querySnapshot.forEach((doc) => {
+      const d = doc.data()
+      sutras.push({
+        id: doc.id,
+        url: d.url,
+        description: d.description,
       })
-      return sutras
     })
-    .catch((err) => {
-      console.log("error: ", err)
-      return { msg: "hoge" }
-    })
+    return sutras
   }
 
-  async create(attributes: Object): Promise<any> {
-    db.collection("sutras").add(attributes)
-    .then((docRef) => {
-      console.log("docRef: ", docRef)
-      return {}
-    })
-    .catch((err) => {
-      console.log("error: ", err)
-      return { msg: "hoge" }
-    })
+  async create(attributes: Sutra): Promise<Sutra> {
+    const docRef = await db.collection("sutras").add(attributes)
+    console.log("docRef: ", docRef)
+    return {
+      id: docRef.id,
+      ...attributes
+    }
   }
 
-  async update(id: string, attributes: Object): Promise<any> {
-    db.collection("sutras").doc(id).update(attributes)
-    .then((docRef) => {
-      console.log("docRef: ", docRef)
-      return {}
-    })
-    .catch((err) => {
-      console.log("error: ", err)
-      return { msg: "hoge" }
-    })
+  async update(id: string, attributes: Sutra): Promise<void> {
+    await db.collection("sutras").doc(id).update(attributes)
   }
 }
