@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { RouteComponentProps, withRouter, Link, Redirect } from 'react-router-dom';
-import './Form.css';
+import React, { useState, useEffect } from 'react'
+import { RouteComponentProps, withRouter, Link, Redirect } from 'react-router-dom'
+import './Form.css'
 
 type Props = {
   isRedirect: boolean | undefined,
@@ -26,8 +26,8 @@ const _form: React.FC<Props> = (props: Props) => {
     setDescription(e.target.value)
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
 
     addSutra({
       url: url,

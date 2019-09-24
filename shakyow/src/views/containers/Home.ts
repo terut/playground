@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { AppState } from '../../state/store'
 import { fetchSutras, clearContext } from '../../state/sutra'
+import { logout } from '../../state/current_user'
 import { _Home } from '../components/Home'
 
 const mapStateToProps = (state: AppState) => {
@@ -17,6 +18,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     clearContext: () => {
       dispatch(clearContext())
+    },
+    logout: () => {
+      dispatch(logout())
     }
   }
 }
