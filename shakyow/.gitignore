@@ -25,3 +25,7 @@ yarn-error.log*
 # app
 /src/config/*
 !/src/config/example.ts
+
+.firebaserc
+*.log
+functions/index.html
