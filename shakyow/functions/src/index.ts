@@ -1,11 +1,12 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import * as fs from 'fs'
+//import * as fs from 'fs'
 import * as ipaddr from 'ipaddr.js'
 import { config } from './config/config'
 
 const databaseURL = config.firebase.databaseURL
-const html = fs.readFileSync('./index.html').toString()
+//const html = fs.readFileSync('./index.html').toString()
+const html = "<h1>Hello</h2>"
 
 export const ipRestriction = functions.https.onRequest((request, response) => {
   const ip = ipaddr.IPv4.parse(request.ip)
