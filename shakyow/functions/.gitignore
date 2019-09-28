@@ -6,3 +6,6 @@
 typings/
 
 node_modules/
+
+## custom
+config.ts
