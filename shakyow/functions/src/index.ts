@@ -1,49 +1,56 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-//import * as fs from 'fs'
+import * as fs from 'fs'
 import * as ipaddr from 'ipaddr.js'
 import { config } from './config/config'
 
 const databaseURL = config.firebase.databaseURL
-//const html = fs.readFileSync('./index.html').toString()
-const html = "<h1>Hello</h2>"
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: databaseURL
+})
 
-export const ipRestriction = functions.https.onRequest((request, response) => {
+const html = fs.readFileSync(__dirname + '/../index.html').toString()
+
+export const ipRestriction = functions.https.onRequest(async (request, response) => {
+  if (!request.ip) {
+    response.status(200).send(html)
+    return
+  }
+
   const ip = ipaddr.IPv4.parse(request.ip)
   const com = request.path.split("/")[1]
 
-  if (com !== "") {
-    console.log("com: ", com)
-    admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
-      databaseURL: databaseURL
-    })
-    const firestore = admin.firestore()
-
-    firestore.doc("metadata/" + com).get().then(snapshot => {
-      let list = []
-      if (snapshot.exists) {
-        const meta = snapshot.data()
-        if (meta) {
-          list = meta.ips
-          console.log("ip list: ", meta.ips)
-        }
-      }
-
-      for (const cidr of list) {
-        if (!ip.match(ipaddr.IPv4.parseCIDR(cidr))) {
-          console.log("no match ip")
-        } else {
-          console.log("match ip")
-        }
-      }
-      console.log("ip: ", ip)
-      response.status(200).send(html)
-    }).catch(err => {
-      console.log("err", err)
-    })
-  } else {
-    console.log("ip: ", ip)
+  if (com === "") {
     response.status(200).send(html)
+    return
   }
+
+  console.log("com: ", com)
+
+  let list = []
+  try {
+    const firestore = admin.firestore()
+    const snapshot = await firestore.doc("metadata/" + com).get()
+    if (snapshot.exists) {
+      const meta = snapshot.data()
+      if (meta) {
+        list = meta.ips
+        console.log("ip list: ", meta.ips)
+      }
+    }
+  } catch (err) {
+    console.log("err: ", err)
+  }
+
+  for (const cidr of list) {
+    // check ip address
+    if (!ip.match(ipaddr.IPv4.parseCIDR(cidr))) {
+      console.log("no match ip")
+    } else {
+      console.log("match ip")
+    }
+  }
+  console.log("ip: ", ip)
+  response.status(200).send(html)
 })
