@@ -5,6 +5,7 @@ import 'firebase/functions'
 import './Home.css'
 import { Item } from './Item'
 import { Sutra } from '../../state/sutra'
+import { firestore } from 'firebase'
 
 type Props = {
   sutras: Sutra[],
@@ -36,6 +37,14 @@ export const _Home: React.FC<Props> = (props: Props) => {
     logout()
   }
 
+  const handleReadSecureData = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const snapshot = await firebase.firestore().collection('secures').get()
+    snapshot.docs.forEach(d => {
+      console.log("msg: ", d.data().msg)
+    })
+  }
+
   const rows = sutras.map((sutra, index) =>
     <Item key={index} url={sutra.url} description={sutra.description}></Item>
   )
@@ -44,6 +53,7 @@ export const _Home: React.FC<Props> = (props: Props) => {
     <>
       <Link className="button-nav" to="/posts/new">Post</Link>
       <button className="button-cancel ml-min" onClick={handleLogout}>Logout</button>
+      <button className="button-primary ml-min" onClick={handleReadSecureData}>ReadSecureData</button>
       <ul>
         { rows }
       </ul>

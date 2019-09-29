@@ -17,7 +17,7 @@ header {
 }
 .button-primary {
   background: steelblue;
-  border: 0;
+  border: none;
   text-decoration: none;
   padding: 5px 20px;
   box-shadow: 0 2px 5px #ccc;
