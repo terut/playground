@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import * as firebase from 'firebase/app'
+import 'firebase/functions'
 import './Home.css'
 import { Item } from './Item'
 import { Sutra } from '../../state/sutra'
@@ -16,6 +18,14 @@ export const _Home: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     fetchSutras()
+
+    // Move to saga
+    const handleRestriction = async () => {
+      const restriction = firebase.functions().httpsCallable('nextIpRestriction')
+      await restriction()
+    }
+
+    handleRestriction()
 
     return clearContext()
   },[fetchSutras, clearContext])

@@ -19,7 +19,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "ipRestriction"
+        "destination": "/index.html"
       }
     ]
   }

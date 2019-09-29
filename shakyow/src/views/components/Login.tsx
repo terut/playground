@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/functions'
 import { Redirect } from 'react-router-dom'
 
 type Props = {
@@ -26,6 +27,13 @@ export const _Login: React.FC<Props> = (props: Props) => {
             displayName: result.user.displayName,
             avatar: result.user.photoURL,
           })
+          const currentUser = firebase.auth().currentUser
+          if (!currentUser) {
+            return
+          }
+          const setCustomClaims = firebase.functions().httpsCallable('setCustomClaims')
+          await setCustomClaims()
+          await currentUser.getIdToken(true)
         }
       } catch(err) {
         console.log("err: ", err)
