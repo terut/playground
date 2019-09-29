@@ -5,6 +5,7 @@ import { Home } from './containers/Home'
 import { Form } from './containers/Form'
 import { Auth } from './containers/Auth'
 import { Login } from './containers/Login'
+import { Prototype } from './components/Prototype'
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
           <Auth>
             <Switch>
               <Route path="/posts/new" component={Form} />
+              <Route path="/prototypes/iprestriction" component={Prototype} />
               <Route path="/" component={Home} />
               <Redirect to="/" />
             </Switch>

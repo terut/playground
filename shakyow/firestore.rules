@@ -1,6 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /sutras/{sutraId} {
+      allow read, write;
+    }
+    match /metadata/{metadataId} {
+      allow read, write;
+    }
     match /secures/{secureId} {
       allow read, write: if request.auth.uid != null;
     }
