@@ -52,8 +52,8 @@ $ yarn test
 $ node -v
 v8.16.1
 $ npx firebase setup:emulators:firestore
-$ npx firebase emulators:start --only firestore
 $ npx firebase serve --only firestore
+$ npx firebase deploy --only firestore:rules --project [your projectId]
 
 $ node -v
 v12.11.0

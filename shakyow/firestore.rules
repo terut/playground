@@ -8,7 +8,8 @@ service cloud.firestore {
       allow read, write;
     }
     match /secures/{secureId} {
-      allow read, write: if request.auth.uid != null;
+      // request.auth.token.target is given when ip restriction is not applied.
+      allow read, write: if request.auth.uid != null && request.auth.token.target == secureId;
     }
     match /{document=**} {
       allow read, write: if false;

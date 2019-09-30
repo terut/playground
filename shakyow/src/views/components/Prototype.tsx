@@ -23,12 +23,25 @@ export const Prototype: React.FC = (props) => {
     await restriction()
   }
 
+  const handleTrySecurityRule = async () => {
+    try {
+      const snapshot = await firebase.firestore().collection('secures').doc('example').get()
+      const d = snapshot.data()
+      if (d) {
+        console.log("secure msg: ", d.msg)
+      }
+    } catch(err) {
+      console.log("security rule err: ", err)
+    }
+  }
+
 
   return (
     <>
       <Link className="button-cancel" to="/">Back</Link>
       <button className="button-primary ml-min" onClick={handleSetCustomClaims}>Try to set CustomClaims</button>
       <button className="button-primary ml-min" onClick={handleTryIPRestriction}>Try IP Restriction</button>
+      <button className="button-primary ml-min" onClick={handleTrySecurityRule}>Try Security Rules</button>
     </>
   )
 }

@@ -43,9 +43,10 @@ export const setCustomClaims = functions.https.onCall(async (data, context) => {
 
   const idToken = context.auth.token
   const auth = createAuth(idToken)
+
   const result = await auth.setCustomClaims({
     ip: context.rawRequest.ip || '192.168.23.10',
-    target: 'example'
+    target: "example",
   })
 
   if (result) {
