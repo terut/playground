@@ -1,7 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Prototype Playground of Firebase Product
 
-## Available Scripts
+## Requirements
 
+- node 12.11.0
+- node 8.16.1
+- JDK
+
+## Setup
+
+```
+$ node -v
+v12.11.0
+$ cp src/config/example.ts src/config/config.ts
+# Rewrite config to your firebase settings
+$ nvim src/config/config.ts
+$ yarn install
+$ yarn build
+
+# functions
+$ cd functions
+$ yarn install
+$ node -v
+v8.16.1
+$ cp functions/src/config/example.ts functions/src/config/config.ts
+$ nvim functions/src/config/config.ts
+$ yarn install
+$ yarn build
+
+```
 In the project directory, you can run:
 
 ### `npm start`
