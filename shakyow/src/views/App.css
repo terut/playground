@@ -1,11 +1,16 @@
+#root {
+  height: 100%;
+}
+
 header {
   padding: 20px;
 }
 
-.content {
+.container {
   width: 1024px;
   margin: auto;
   margin-top: 10px;
+  height: 100%;
 }
 
 .button-nav {

@@ -35,6 +35,7 @@ export const _Home: React.FC<Props> = (props: Props) => {
       <Link className="button-nav" to="/posts/new">Post</Link>
       <button className="button-cancel ml-min" onClick={handleLogout}>Logout</button>
       <Link className="button-nav ml-min" to="/prototypes/iprestriction">Try IP Resctriction</Link>
+      <Link className="button-nav ml-min" to="/prototypes/presense">Try Presense</Link>
       <ul>
         { rows }
       </ul>
