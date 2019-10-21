@@ -31,6 +31,7 @@ function* runFetchSutras(action: ReturnType<typeof fetchSutras.start>) {
 
     yield put(fetchSutras.succeed(sutras))
   } catch (error) {
+    console.log("error: ", error)
     yield put(fetchSutras.fail({ msg: "error" }))
   }
 }

@@ -1,15 +1,8 @@
+import { Repository } from './repository'
+import { Sutra } from '../state/sutra'
+
 import * as firebase from "firebase/app"
 import "firebase/firestore"
-import { config } from "../config/config"
-import { Sutra } from "../state/sutra"
-
-firebase.initializeApp(config.firebase)
-
-const db = firebase.firestore()
-
-export interface Error {
-  msg: string
-}
 
 export interface ISutraRepository {
   all(): Promise<Sutra[]>
@@ -17,7 +10,15 @@ export interface ISutraRepository {
   update(id:string, attributes: Sutra): Promise<void>
 }
 
-export class SutraRepository implements ISutraRepository {
+const db = firebase.firestore()
+
+export class SutraRepository extends Repository implements ISutraRepository {
+
+  constructor() {
+    super()
+    console.log("constructor")
+  }
+
   async all(): Promise<Sutra[]> {
     const querySnapshot = await db.collection("sutras").get()
     let sutras: Sutra[] = []

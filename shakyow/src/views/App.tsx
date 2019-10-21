@@ -6,7 +6,7 @@ import { Form } from './containers/Form'
 import { Auth } from './containers/Auth'
 import { Login } from './containers/Login'
 import { Prototype } from './components/Prototype'
-import { Presense } from './components/Presense'
+import { Presence } from './containers/Presence'
 
 const App: React.FC = () => {
   return (
@@ -20,7 +20,7 @@ const App: React.FC = () => {
             <Switch>
               <Route path="/posts/new" component={Form} />
               <Route path="/prototypes/iprestriction" component={Prototype} />
-              <Route path="/prototypes/presense" component={Presense} />
+              <Route path="/prototypes/presense" component={Presence} />
               <Route path="/" component={Home} />
               <Redirect to="/" />
             </Switch>

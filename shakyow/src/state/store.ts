@@ -2,11 +2,13 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 import { sutraReducer } from './sutra'
+import { presenceReducer } from './presence'
 import { currentUserReducer } from './current_user'
 import { rootSage } from '../sagas'
 
 const rootReducer = combineReducers({
   sutra: sutraReducer,
+  presence: presenceReducer,
   currentUser: currentUserReducer
 })
 
