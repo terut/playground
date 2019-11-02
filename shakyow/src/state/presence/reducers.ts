@@ -7,6 +7,10 @@ import {
   PRESENCE_UNSUBSCRIBE,
   PRESENCE_ADDED,
   PRESENCE_REMOVED,
+  PRESENCE_CHANGED,
+  PRESENCE_UPDATE_REQUESTED,
+  PRESENCE_UPDATE_SUCCEEDED,
+  PRESENCE_UPDATE_FAILED,
   PRESENCE_CLEARED,
   PresenceActionTypes,
 } from './actions'
@@ -16,8 +20,9 @@ const initialState: PresenceState = {
 }
 
 const presences = (state = initialState, action: PresenceActionTypes) => {
-  switch(action.type) {
+  switch (action.type) {
     case PRESENCE_ADDED:
+    case PRESENCE_CHANGED:
       return {
         ...state,
         presences: {
@@ -39,8 +44,15 @@ const presences = (state = initialState, action: PresenceActionTypes) => {
         ...state,
         presences: {}
       }
+    case PRESENCE_UPDATE_FAILED:
+      console.log("presence update error")
+      return {
+        ...state
+      }
     case PRESENCE_SUBSCRIBE:
     case PRESENCE_UNSUBSCRIBE:
+    case PRESENCE_UPDATE_REQUESTED:
+    case PRESENCE_UPDATE_SUCCEEDED:
       return state
     default:
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

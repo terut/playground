@@ -1,13 +1,12 @@
-export interface Subscription {
+export interface Presence {
   room: string
   username: string
-}
-
-export interface Presence {
-  username: string
-  lastChanged: number
+  position?: {
+    x: number,
+    y: number,
+  }
 }
 
 export interface PresenceState {
-  presences: {[index:string]:Presence}
+  presences: { [index: string]: Presence }
 }

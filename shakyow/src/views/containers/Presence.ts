@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { AppState } from '../../state/store'
-import { subscribePresence, unsubscribePresence, Subscription } from '../../state/presence'
+import { subscribePresence, unsubscribePresence, updatePresence, Presence } from '../../state/presence'
 import { _Presence } from '../components/Presence'
 
 const mapStateToProps = (state: AppState) => {
@@ -12,13 +12,16 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    subscribePresence: (subscription: Subscription) => {
-      dispatch(subscribePresence(subscription))
+    subscribePresence: (presence: Presence) => {
+      dispatch(subscribePresence(presence))
     },
-    unsubscribePresence: (subscription: Subscription) => {
-      dispatch(unsubscribePresence(subscription))
+    unsubscribePresence: (presence: Presence) => {
+      dispatch(unsubscribePresence(presence))
+    },
+    updatePresence: (presence: Presence) => {
+      dispatch(updatePresence.start(presence))
     }
   }
 }
 
-export const Presence = connect(mapStateToProps, mapDispatchToProps)(_Presence)
+export const PresenceScreen = connect(mapStateToProps, mapDispatchToProps)(_Presence)
