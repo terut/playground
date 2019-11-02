@@ -22,7 +22,11 @@ export interface IPresenceRepository {
 
 const db = firebase.database()
 
-export class PresenceRepository extends Repository implements IPresenceRepository {
+export const CreateRepository = (room: string, username: string): IPresenceRepository => {
+  return new presenceRepository(room, username)
+}
+
+class presenceRepository extends Repository implements IPresenceRepository {
   private username: string
   private room: string
 

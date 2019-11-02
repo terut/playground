@@ -10,11 +10,11 @@ import {
   updatePresence,
   PRESENCE_UPDATE_REQUESTED
 } from '../state/presence'
-import { PresenceRepository, Presence } from '../repository'
+import { CreateRepository, Presence } from '../repository'
 
 function* presenceChannel(room: string, username: string) {
   return eventChannel(emit => {
-    const repo = new PresenceRepository(room, username)
+    const repo = CreateRepository(room, username)
     const unsubscribe = repo.subscribe((presence: Presence) => {
       emit(presence)
     })
@@ -75,7 +75,7 @@ function* runUpdatePresence(action: ReturnType<typeof updatePresence.start>) {
   const payload = action.payload
 
   try {
-    const repo = new PresenceRepository(payload.room, payload.username)
+    const repo = CreateRepository(payload.room, payload.username)
     yield call(repo.update, payload as any)
     yield put(updatePresence.succeed())
   } catch (error) {
