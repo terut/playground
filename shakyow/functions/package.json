@@ -17,7 +17,8 @@
   "dependencies": {
     "firebase-admin": "^8.0.0",
     "firebase-functions": "^3.1.0",
-    "ipaddr.js": "^1.9.1"
+    "ipaddr.js": "^1.9.1",
+    "samlify": "^2.6.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
