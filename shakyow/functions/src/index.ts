@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as fs from 'fs'
 import { createIpRestriction } from './restriction'
 import { createAuth } from './custom_claim'
+import { samlOkta } from './saml'
 
 const html = fs.readFileSync(__dirname + '/../index.html').toString()
 
@@ -54,4 +55,13 @@ export const setCustomClaims = functions.https.onCall(async (data, context) => {
   } else {
     console.log('failed to set CustomClaims')
   }
+})
+
+export const saml = functions.https.onRequest(async (request, response) => {
+  //const message = request.body.SAMLResponse
+  //const samlResponse = Buffer.from(message, 'base64').toString('utf8')
+  //console.log(samlResponse)
+  const customToken = await samlOkta(request)
+
+  response.redirect('http://localhost:5000/login/?token='+customToken)
 })

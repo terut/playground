@@ -2,14 +2,18 @@ import React, { useEffect } from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import { Redirect } from 'react-router-dom'
+import * as queryString from 'query-string'
+import * as H from 'history'
+import { isString } from 'util'
 
 type Props = {
   login: Function
   isLoggedIn: boolean
+  location: H.Location
 }
 
 export const _Login: React.FC<Props> = (props: Props) => {
-  const { login, isLoggedIn } = props
+  const { login, isLoggedIn, location} = props
 
   // Where is correct layer?
   const provider = new firebase.auth.GoogleAuthProvider()
@@ -32,7 +36,28 @@ export const _Login: React.FC<Props> = (props: Props) => {
       }
     }
 
+    const sso = async () => {
+      console.log("location: ", location)
+      const parsed = queryString.parse(location.search)
+      console.log("token: ", parsed.token)
+      if (!isString(parsed.token)) {
+        return
+      }
+
+      await firebase.auth().signInWithCustomToken(parsed.token)
+      const user = firebase.auth().currentUser
+      console.log(JSON.stringify(user, undefined, 2))
+      if (user) {
+        login({
+          id: user.uid,
+          displayName: user.displayName,
+          avatar: user.photoURL
+        })
+      }
+    }
+
     handleCallback()
+    sso()
   }, [login])
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
